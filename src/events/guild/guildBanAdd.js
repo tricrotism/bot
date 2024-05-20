@@ -2,6 +2,8 @@ const { AuditLogEvent, EmbedBuilder, Colors } = require("discord.js")
 
 module.exports = async(client, ban) => {
     const guild = ban.guild
+    
+    //todo: config for this
     const channel = guild.channels.cache.get("1233284224098766902")
 
     if (!channel) {

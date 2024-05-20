@@ -4,6 +4,9 @@ const { Collection, Events } = require('discord.js');
 const Discord = require('discord.js');
 require('dotenv').config();
 
+/*
+* Discord bs to get everything working for the bot 
+*/
 const client = new Discord.Client({
     allowedMentions: {
         parse: [
@@ -27,7 +30,6 @@ const client = new Discord.Client({
     intents: [
         Discord.GatewayIntentBits.Guilds,
         Discord.GatewayIntentBits.GuildMembers,
-        Discord.GatewayIntentBits.GuildBans,
         Discord.GatewayIntentBits.GuildEmojisAndStickers,
         Discord.GatewayIntentBits.GuildIntegrations,
         Discord.GatewayIntentBits.GuildWebhooks,
@@ -49,6 +51,9 @@ client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
 
+/*
+* Handles checking the command directory(ies)
+*/
 for (const folder of commandFolders) {
 	const commandsPath = path.join(foldersPath, folder);
 	const commandFiles = fs.readdirSync(commandsPath).filter(file => file.endsWith('.js'));
@@ -63,14 +68,23 @@ for (const folder of commandFolders) {
 	}
 }
 
+/*
+* Gets the handlers
+*/
 fs.readdirSync('./src/handlers').forEach((handler) => {
 	require(`./handlers/${handler}`)(client);
 });
 
+/*
+* Ready Event
+*/
 client.once(Events.ClientReady, readyClient => {
 	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
 });
 
+/*
+* Command Interaction Event
+*/
 client.on(Events.InteractionCreate, async interaction => {
 	if (!interaction.isChatInputCommand()) return;
 	const command = interaction.client.commands.get(interaction.commandName);
@@ -92,4 +106,7 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
+/*
+* Login via .env
+*/
 client.login(process.env.TOKEN);

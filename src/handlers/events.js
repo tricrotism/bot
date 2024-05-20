@@ -2,8 +2,10 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const formats = require('../util/formats')
 
+/*
+* Fetches all events and registers them
+*/
 module.exports = (client) => {
-
     formats("system", "Loading Events");
 
     fs.readdirSync('./src/events').forEach(dirs => {

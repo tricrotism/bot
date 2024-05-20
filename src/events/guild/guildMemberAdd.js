@@ -4,6 +4,7 @@ module.exports = async (client, member) => {
 
     client.invites = {}
 
+    //todo: config for this
     const channel = member.guild.channels.cache.get("1233284224098766902")
 
     member.guild.invites.fetch().then(guildInvites => {
