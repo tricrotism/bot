@@ -2,6 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const { Collection, Events } = require('discord.js');
 const Discord = require('discord.js');
+const formats = require('./util/formats')
 require('dotenv').config();
 
 /*
@@ -62,8 +63,9 @@ for (const folder of commandFolders) {
 		const command = require(filePath);
 		if ('data' in command && 'execute' in command) {
 			client.commands.set(command.data.name, command);
+            formats("commands", `${file} has loaded`)
 		} else {
-			console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
+			formats("system", `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
 		}
 	}
 }
@@ -79,7 +81,7 @@ fs.readdirSync('./src/handlers').forEach((handler) => {
 * Ready Event
 */
 client.once(Events.ClientReady, readyClient => {
-	console.log(`Ready! Logged in as ${readyClient.user.tag}`);
+	formats("system", `Logged in as ${readyClient.user.tag}`);
 });
 
 /*
@@ -90,7 +92,7 @@ client.on(Events.InteractionCreate, async interaction => {
 	const command = interaction.client.commands.get(interaction.commandName);
 
 	if (!command) {
-		console.error(`No command matching ${interaction.commandName} was found.`);
+		formats("error", `No command matching ${interaction.commandName} was found.`);
 		return;
 	}
 

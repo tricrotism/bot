@@ -14,6 +14,9 @@ async function systemLog(type, string) {
         case "events":
             prefix = chalk.default.green("Events ");
             break;
+        case "commands":
+            prefix = chalk.default.magenta("Commands ");
+            break;
         default:
             prefix = "";
     }

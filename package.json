@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "run": "nodemon run node . && node ./src/cmdhandler.js"
+    "run": "nodemon run node .",
+    "updateCmds": "node ./src/cmdhandler.js"
   },
   "author": "",
   "license": "ISC",

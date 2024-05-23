@@ -2,6 +2,8 @@ const { Colors, EmbedBuilder } = require("discord.js");
 
 module.exports = async (client, member) => {
 
+    if(member.user.bot) return;
+
     //todo: config for this
     const channel = member.guild.channels.cache.get("1233284224098766902")
 
