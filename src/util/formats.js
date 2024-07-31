@@ -3,24 +3,24 @@ async function systemLog(type, string) {
     let prefix = "";
     switch(type) {
         case "system":
-            prefix = chalk.default.red("System ");
+            prefix = chalk.default.red("System");
             break;
         case "error":
-            prefix = chalk.default.red("Error ");
+            prefix = chalk.default.red("Error");
             break;
         case "generic":
-            prefix = chalk.default.blue("Generic ");
+            prefix = chalk.default.blue("Generic");
             break;
         case "events":
-            prefix = chalk.default.green("Events ");
+            prefix = chalk.default.green("Events");
             break;
         case "commands":
-            prefix = chalk.default.magenta("Commands ");
+            prefix = chalk.default.magenta("Commands");
             break;
         default:
             prefix = "";
     }
-    console.log(prefix + chalk.default.blueBright(">> ") + chalk.default.white(string));
+    console.log(prefix + chalk.default.blueBright(" >> ") + chalk.default.white(string));
 }
 
 module.exports = systemLog;

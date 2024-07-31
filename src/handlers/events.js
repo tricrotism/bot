@@ -2,7 +2,7 @@ const fs = require('fs');
 const Discord = require('discord.js');
 const formats = require('../util/formats')
 
-/*
+/**
 * Fetches all events and registers them
 */
 module.exports = (client) => {
@@ -18,11 +18,11 @@ module.exports = (client) => {
             formats("events", `${file} has loaded`)
             const eventName = file.split(".")[0];
             const eventUpperCase = eventName.charAt(0).toUpperCase() + eventName.slice(1);
-            if(Discord.Events[eventUpperCase] === undefined){
+            if (Discord.Events[eventUpperCase] === undefined) {
                 client.on(eventName, event.bind(null, client)).setMaxListeners(0);
-            }else {
+            } else {
                 client.on(Discord.Events[eventUpperCase], event.bind(null, client)).setMaxListeners(0);
             }
-        };
+        }
     });
 }
