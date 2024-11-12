@@ -7,7 +7,7 @@ module.exports = async (client, channel) => {
     const channelLogChannel = guild.channels.cache.get(getConfig(guild.id, "logChannelId"))
 
     if (!channelLogChannel) {
-        console.error(`Channel with ID ${channel.id} was not found.`)
+        console.error(`Channel with ID ${getConfig(guild.id, "logChannelId")} was not found for guild ${guild.id}`)
         return
     }
 

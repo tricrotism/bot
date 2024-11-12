@@ -3,6 +3,7 @@ const path = require('path');
 const {Collection, Events} = require('discord.js');
 const Discord = require('discord.js');
 const formats = require('./util/formats')
+const database = require('./util/database');
 require('dotenv').config();
 
 /**
@@ -56,6 +57,23 @@ const client = new Discord.Client({
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
+
+const db = require('./util/database');
+const connectWithRetry = (retries = 5, delay = 5000) => {
+    db.connect((err, connection) => {
+        if (err) {
+            formats("error", `Error connecting to database: ${err}`);
+            if (retries > 0) {
+                formats("system", `Retrying to connect in ${delay / 1000} seconds... (${retries} retries left)`);
+                setTimeout(() => connectWithRetry(retries - 1, delay), delay);
+            }
+            return;
+        }
+        formats("system", `Connected to MySQL database as id ${connection.threadId}`);
+    });
+};
+
+connectWithRetry();
 
 /**
 * Handles checking the command directory(ies)
